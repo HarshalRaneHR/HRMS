@@ -12,7 +12,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
@@ -27,11 +27,11 @@ import LeaveIcon from "@mui/icons-material/AccountTree";
 
 const Sidebar = () => {
   const drawerWidth = 310;
+  const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, link: "/dashboard" },
     { text: "Employees", icon: <PeopleIcon />, link: "/dashboard/employees" },
@@ -46,13 +46,12 @@ const Sidebar = () => {
       icon: <LeaveIcon />,
       link: "/dashboard/manage-leaves",
     },
-    { text: "Attendance", icon: <EventIcon />, link: "/dashboard3" },
-    { text: "Projects", icon: <WorkIcon />, link: "/dashboard4" },
-    { text: "Settings", icon: <SettingsIcon />, link: "/dashboard5" },
+    { text: "Attendance", icon: <EventIcon />, link: "/dashboard/attendance" },
+    { text: "Projects", icon: <WorkIcon />, link: "/dashboard/project" },
+    { text: "Settings", icon: <SettingsIcon />, link: "/dashboard/setting" },
   ];
-  const [activeLink, setActiveLink] = useState(menuItems[0]?.link);
-  const handleLinkClick = (e, link) => {
-    setActiveLink(link);
+
+  const handleLinkClick = () => {
     setMobileOpen(!mobileOpen);
   };
 
@@ -87,7 +86,7 @@ const Sidebar = () => {
           >
             <ListItem
               sx={{ borderRadius: "5px" }}
-              className={activeLink === item.link ? "active" : ""}
+              className={location.pathname === item.link ? "active" : ""}
             >
               {/* <Tooltip title={item.text} placement="bottom-end" arrow> */}
               <ListItemButton>

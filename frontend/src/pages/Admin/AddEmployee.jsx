@@ -9,6 +9,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   bgcolor: "background.paper",
@@ -28,7 +29,8 @@ const departments = [
   "Operations",
 ];
 
-const AddEmployee = () => {
+const AddEmployee = (props) => {
+  const { setOpenModal } = props;
   const [emailError, setEmailError] = useState(false);
   const [addEmpObj, setAddEmpObj] = useState({
     name: "",
@@ -53,6 +55,16 @@ const AddEmployee = () => {
     if (!emailRegex.test(addEmpObj.email)) {
       setEmailError(true);
       return;
+    }
+  };
+  const actionClickHandler = (e, type) => {
+    switch (type) {
+      case "back":
+        setOpenModal(false);
+        break;
+
+      default:
+        break;
     }
   };
 
@@ -261,6 +273,7 @@ const AddEmployee = () => {
           type="submit"
           fullWidth
           startIcon={<AddIcon />}
+          onClick={(e) => actionClickHandler(e, "add")}
         >
           Add Employee
         </Button>
@@ -269,6 +282,7 @@ const AddEmployee = () => {
           color="primary"
           fullWidth
           startIcon={<ArrowBackIcon />}
+          onClick={(e) => actionClickHandler(e, "back")}
         >
           Back
         </Button>

@@ -7,6 +7,10 @@ import Department from "../pages/Admin/Department";
 import Employees from "../pages/Admin/Employees";
 import Grades from "../pages/Admin/Grades";
 import Leaves from "../pages/Admin/Leaves";
+import ViewEmployee from "../pages/Admin/ViewEmployee";
+import Setting from "../pages/Admin/Setting";
+import Attendance from "../pages/Admin/Attendance";
+import Project from "../pages/Admin/Project";
 const ContentArea = () => {
   return (
     <>
@@ -20,10 +24,15 @@ const ContentArea = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Sidebar />}>
             <Route index element={<Dashboard />} />
-            <Route path="employees" element={<Employees />} />
+            <Route path="employees" element={<Employees />}>
+              <Route path=":id" element={<ViewEmployee />} />
+            </Route>
             <Route path="department" element={<Department />} />
             <Route path="grades" element={<Grades />} />
             <Route path="manage-leaves" element={<Leaves />} />
+            <Route path="attendance" element={<Attendance />} />
+            <Route path="project" element={<Project />} />
+            <Route path="setting" element={<Setting />} />
           </Route>
 
           <Route path="*" element={<Error />} />
